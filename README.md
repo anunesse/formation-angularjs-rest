@@ -1,5 +1,5 @@
 # AngularJS Training
-This REST API has been designed for the AngularJS Training given at Excilys Feb 25th 2014.
+This REST API has been designed for AngularJS trainings
 
 ## GET /tweets
 Fetch the list of tweets.
@@ -8,13 +8,13 @@ The order is not guaranteed.
 ```
 [
   {
-    id: 0,
-    authorName: "@JoanZap",
-    message: "Hello World!",
-    authorEmailHash: "265033d8a18c8d568ef2d676bda17f1d",
-    date: 1392989165956,
-    answers: 0|n,
-    answer: true|false
+    "id": 0,
+    "authorName": "@Alex",
+    "message": "Hello World!",
+    "authorEmailHash": "265033d8a18c8d568ef2d676bda17f1d",
+    "date": 1392989865956,
+    "answers": 0|n,
+    "answer": true|false
   },
   …
 ]
@@ -26,22 +26,22 @@ Add a tweet.
 **Payload**
 ```
 {
-    authorEmail: "zapata.joan@gmail.com"
-    authorName: "@JoanZap"
-    message: "Hello World !"
+    "authorEmail": "anunesse@excilys.com"
+    "authorName": "@Alex"
+    "message": "Hello World !"
 }
 ```
 
 **Result**
 ```
 {
-    id: 0,
-    authorName: "@JoanZap",
-    message: "Hello World!",
-    authorEmailHash: "265033d8a18c8d568ef2d676bda17f1d",
-    date: 1392989165956,
-    answers: 0,
-    answer: true|false
+    "id": 0,
+    "authorName": "@Alex",
+    "message": "Hello World!",
+    "authorEmailHash": "265033d8a18c8d568aa2d676bda17f1d",
+    "date": 1392989165956,
+    "answers": 0,
+    "answer": true|false
 }
 ```
 
