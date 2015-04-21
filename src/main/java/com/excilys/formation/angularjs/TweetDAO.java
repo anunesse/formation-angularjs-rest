@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.excilys.formation.angularjs.exception.GeneralException.ErrorCode.TWEET_NOT_FOUND;
 
@@ -17,6 +18,14 @@ public class TweetDAO {
 
     public List<Tweet> findAll() {
         return tweets;
+    }
+
+    public List<Tweet> findAllByPage(int page, int size, String search) {
+      return tweets.stream()
+          .filter(t -> t.authorEmail.contains(search) || t.authorName.contains(search))
+          .skip(page*size)
+          .limit(size)
+          .collect(Collectors.toList());
     }
 
     /**
@@ -36,6 +45,23 @@ public class TweetDAO {
         // Save it
         tweets.add(tweet);
         return tweet;
+    }
+
+    /**
+     * Update the given tweet.
+     * @return The updated tweet.
+     */
+    public Tweet update(Tweet tweet) {
+
+      // Validate the tweet
+      tweet.validate();
+
+      Tweet tw = findById(tweet.getId());
+
+      tweets.get(tweets.indexOf(tw)).like = tweet.like;
+
+      return tweet;
+
     }
 
     /**

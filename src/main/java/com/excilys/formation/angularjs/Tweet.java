@@ -37,6 +37,9 @@ public class Tweet {
     @JsonProperty
     public final Date date;
 
+    @JsonProperty
+    public Integer like;
+
     @JsonIgnore
     public final List<Tweet> answers;
 
@@ -55,6 +58,7 @@ public class Tweet {
                 : md5().hashString(authorEmail, UTF_8).toString();
         this.message = message;
         this.date = new Date();
+        this.like = 0;
         this.answers = new ArrayList<Tweet>();
     }
 
@@ -94,6 +98,9 @@ public class Tweet {
         if (isNullOrEmpty(authorEmail)) throw new GeneralException(EMAIL_EMPTY);
         if (authorEmail.length() > EMAIL_MAX_LENGTH) throw new GeneralException(EMAIL_TOO_LONG);
         if (!isEmailValid(authorEmail)) throw new GeneralException(EMAIL_INVALID);
+
+        // Like checks
+        if (like>Integer.MAX_VALUE || like<Integer.MIN_VALUE) throw new GeneralException(TWEET_LIKE_INVALID);
     }
 
     @JsonIgnore

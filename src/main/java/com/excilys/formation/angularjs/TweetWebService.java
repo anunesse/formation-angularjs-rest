@@ -4,12 +4,7 @@ import com.excilys.formation.angularjs.exception.GeneralException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +26,14 @@ public class TweetWebService {
         return tweetDAO.findAll();
     }
 
+    @GET
+    @Path("/paged")
+    public List<Tweet> findAll(@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("search") String search) {
+      if (search == null) search = "";
+      if (size == 0) size = 20;
+      return tweetDAO.findAllByPage(page, size, search);
+    }
+
     @POST
     @Path("/")
     public Tweet save(Tweet tweet) {
@@ -44,6 +47,22 @@ public class TweetWebService {
         if (answer == null) throw new GeneralException(NULL_TWEET);
         final Tweet parent = tweetDAO.findById(tweet);
         return tweetDAO.save(answer, parent);
+    }
+
+    @POST
+    @Path("/{tweet}/like")
+    public Tweet like(@PathParam("tweet") Long tweet) {
+      final Tweet parent = tweetDAO.findById(tweet);
+      parent.like++;
+      return tweetDAO.update(parent);
+    }
+
+    @POST
+    @Path("/{tweet}/dislike")
+    public Tweet dislike(@PathParam("tweet") Long tweet) {
+      final Tweet parent = tweetDAO.findById(tweet);
+      parent.like--;
+      return tweetDAO.update(parent);
     }
 
     /**

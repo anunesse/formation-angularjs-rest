@@ -18,7 +18,8 @@ public class GeneralException extends RuntimeException {
         EMAIL_TOO_LONG(8, "The author email is too long, it should be at most " + Tweet.EMAIL_MAX_LENGTH + " character long."),
         EMAIL_INVALID(9, "The author email is not RFC822 compliant."),
         TWEET_NOT_FOUND(10, "The tweet doesn't exist."),
-        UNKNOWN_ERROR(11, "Oops! An error happened.");
+        TWEET_LIKE_INVALID(11, "The tweet like number is invalid."),
+        UNKNOWN_ERROR(12, "Oops! An error happened.");
 
         int code;
         String message;
