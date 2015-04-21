@@ -22,7 +22,7 @@ public class TweetDAO {
 
     public List<Tweet> findAllByPage(int page, int size, String search) {
       return tweets.stream()
-          .filter(t -> t.authorEmail.contains(search) || t.authorName.contains(search))
+          .filter(t -> t.authorEmail.contains(search) || t.authorName.contains(search) || t.message.contains(search))
           .skip(page*size)
           .limit(size)
           .collect(Collectors.toList());
